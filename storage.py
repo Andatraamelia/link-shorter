@@ -5,15 +5,45 @@ conn = sqlite3.connect("links.db")
 
 conn.execute('''
 CREATE TABLE IF NOT EXISTS links(
-    key  VARCHAR(7) PRIMARY KEY,
+    key  VARCHAR PRIMARY KEY,
     link TEXT
 )
 ''')
 conn.commit()
 
-def add_link(key: str, link: str) -> None:
+def add_link(key: str, link: str) -> bool: # Добавляет ссылку в ДБ, возвращает успех или провал трназакции
+    try:
+        conn.execute(
+            "INSERT INTO links (key, link) VALUES (?, ?)",
+            (key, link)
+        )
+        conn.commit()
+
+        return True
+
+    except sqlite3.IntegrityError:
+        return False
+
+
+def clear() -> bool: # очистить все записи
     conn.execute(
-        "INSERT INTO links (key, link) VALUES (?, ?)",
-        (key, link)
+        """
+        DELETE FROM links;
+        """
     )
     conn.commit()
+
+    return True
+
+
+def find(elem: str) -> list: # Найти конкретную запись по ключу или ссылке
+    return conn.execute(
+        "SELECT * FROM links WHERE link = ? OR key = ?",
+        (elem, elem),
+    ).fetchall()
+
+
+def show() -> list: # показать все записи в БД
+    return conn.execute(
+        "SELECT * FROM links"
+    ).fetchall()

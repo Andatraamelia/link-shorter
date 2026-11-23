@@ -1,7 +1,7 @@
 import random
 import string
 
-def key_generator() -> str: # generate key in len of 7 chars with random letters and digits
+def key_generator() -> str: # generates key in len of 7 chars with random letters and digits
     lowercase_letters = list(string.ascii_lowercase) #list with letters
     digits = list(string.digits) #list with digits
     char_type = ['letter', 'digit'] # to choosing type of next char
