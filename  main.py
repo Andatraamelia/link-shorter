@@ -28,13 +28,13 @@ while True: # цикл опроса пользователя
         func_result = storage.add_link(key = keygen.key_generator(), us_link) # type: ignore # переменная хранит bool функции
 
         if func_result == True:
-            print('Link added sucsessfuly')
+            print('Link added successfully')
 
         else: # если произошла коллизия - будем крутить ключи, пока не найдём уникальный
             while func_result == False:
                 new_key = keygen.key_generator()
 
-                func_result = storage.add_link(key = keygen.key_generator(), us_link) # type: ignore
+                func_result = storage.add_link(new_key, us_link) # type: ignore
 
 
     elif command == 'find': # Команда поиска по ключу или ссылке
