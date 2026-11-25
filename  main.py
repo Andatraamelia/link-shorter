@@ -2,7 +2,9 @@
 import keygen
 import storage
 
-help = print(f'add - add link to db\nclear - clear all elements in db\nfind - find element with key or link\nshow - show all DB')
+help = print(f"""
+add - add link to db\nclear - clear all elements in db\nfind - find element with key or link\nshow - show all DB\ndelete - delete pair witn key or link
+""")
 
 while True: # цикл опроса пользователя
     
@@ -38,3 +40,12 @@ while True: # цикл опроса пользователя
             print(f'DB whiped out! Deleted {whiped_elements}!')
         else:
             print('\nsmthn wrong!')
+
+    elif command == 'delete': # найти запись по ключу или ссылке и удалить
+        elem = input('Input key or link so I can find and destroy it: ')
+        pair = storage.find(elem)
+
+        if storage.delete(elem):
+            print(f'{pair} - deleted')
+        else:
+            print('smthn wrong!')

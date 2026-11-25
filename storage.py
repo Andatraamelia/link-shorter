@@ -47,3 +47,19 @@ def show() -> list: # показать все записи в БД
     return conn.execute(
         "SELECT * FROM links"
     ).fetchall()
+
+
+def delete(elem) -> bool: # очистить все записи
+    try: # Отрабатываем, если всё хорошо
+        conn.execute(
+            """
+            DELETE FROM links
+            WHERE link = ? OR key = ?;
+            """, (elem,elem),
+        )
+        conn.commit()
+        return True
+    
+    except Exception as error: # выводим ошибку, если возникает, возвращаем фолс
+        print(f'smthn gone wrong: {error}')
+        return False
