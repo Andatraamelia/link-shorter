@@ -1,7 +1,7 @@
 # работа с БД
 import sqlite3
 
-conn = sqlite3.connect("links.db")
+conn = sqlite3.connect('links.db', check_same_thread=False)
 
 conn.execute('''
 CREATE TABLE IF NOT EXISTS links(
